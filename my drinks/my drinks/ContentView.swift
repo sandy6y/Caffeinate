@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var logs: [Log] = []
+    @State private var showingNewLog = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Button("Add") {
+            showingNewLog = true
         }
-        .padding()
+        .sheet(isPresented: $showingNewLog) {
+            NewLogView(logs: $logs)
+        }
     }
 }
 
