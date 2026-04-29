@@ -70,4 +70,6 @@ extension Log {
         Log(name: "Matcha", time: Date(), type: .other, size: .large, temperature: .iced, caffeine: 0, sugar: 5, price: 5.50, rating: 2, note: "Too sweet"),
         Log(name: "Cappuccino", time: Date(), type: .cappuccino, size: .medium, temperature: .hot, caffeine: 75, sugar: 0, price: 4.50, rating: 4, note: nil)
     ]
+    
+    static let dummyEmptyList: [Log] = []
 }
