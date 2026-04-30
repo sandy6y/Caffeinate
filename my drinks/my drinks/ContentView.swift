@@ -17,7 +17,12 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "cup.and.saucer.fill")
                 }
+            ReportView(logs: logs)
+                .tabItem {
+                    Image(systemName: "chart.bar.fill")
+                }
         }
+        .tint(.brown)
     }
 }
 

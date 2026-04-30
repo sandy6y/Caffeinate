@@ -10,7 +10,32 @@ import SwiftUI
 struct HomeView: View {
     @Binding var logs: [Log]
     @State private var showingNewLog = false
+    @State private var selectedMonth: Date = Date()
     
+    // MARK: Navigation
+    func goBack() {
+        selectedMonth = Calendar.current.date(byAdding: .month, value: -1, to: selectedMonth) ?? selectedMonth
+    }
+    
+    func goForward() {
+        let next = Calendar.current.date(byAdding: .month, value: 1, to: selectedMonth) ?? selectedMonth
+        if !Calendar.current.isDate(next, equalTo: Date(), toGranularity: .month) && next > Date() {
+            return
+        }
+        selectedMonth = next
+    }
+    
+    var isCurrentMonth: Bool {
+        Calendar.current.isDate(selectedMonth, equalTo: Date(), toGranularity: .month)
+    }
+    
+    var monthTitle: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter.string(from: selectedMonth)
+    }
+    
+    // MARK: Computation
     var todayCaffeine: Int {
         let today = Calendar.current.startOfDay(for: Date())
         return logs
@@ -41,15 +66,44 @@ struct HomeView: View {
             ScrollView {
                 VStack(alignment: .center, spacing: 20) {
                     
+                    // MARK: Month Navigator
+                    
                     HStack {
-                        Text(Date.now.formatted(.dateTime.month(.wide)))
-                            .fontWeight(.semibold)
+                        Button {
+                            goBack()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.brown)
+                                .padding(8)
+                                .background(Color(.systemGray6))
+                                .clipShape(Circle())
+                        }
+                        
                         Spacer()
-                        Text("------------------------------------")
+                        
+                        Text(monthTitle)
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                        
+                        Spacer()
+                        
+                        Button {
+                            goForward()
+                        } label: {
+                            Image(systemName: "chevron.right")
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.brown)
+                                .padding(8)
+                                .background(Color(.systemGray6))
+                                .clipShape(Circle())
+                        }
+                        .disabled(isCurrentMonth)
                     }
                     .padding(.horizontal)
 
                     // MARK: Caffeine Summary Card
+                    // only show today's caffeine with logs of current month
                     VStack(alignment: .center, spacing: 10) {
                         Text("Today's Caffeine")
                             .font(.system(size: 40))
@@ -63,6 +117,7 @@ struct HomeView: View {
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                     }
+                    .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color(.systemBackground))
                     .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -88,7 +143,7 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
                     
-                    // MARK: This Month's logs grouped by day
+                    // MARK: Logs grouped by day
                     if logsByDay.isEmpty {
                         VStack(alignment: .center, spacing: 8) {
                             Text("☕")

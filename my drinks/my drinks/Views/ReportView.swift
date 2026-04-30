@@ -10,6 +10,7 @@ import SwiftUI
 struct ReportView: View {
     let logs: [Log]
     @State private var selectedPeriod: Period = .month
+    @State private var selectedDate: Date = Date()
     
     enum Period: String, CaseIterable {
         case week = "Week"
@@ -17,21 +18,82 @@ struct ReportView: View {
         case year = "Year"
     }
     
-    var filteredLogs: [Log] {
+    // MARK: Navigation
+    func goBack() {
+        let calendar = Calendar.current
+        switch selectedPeriod {
+        case .week:
+            selectedDate = calendar.date(byAdding: .weekOfYear, value: -1, to: selectedDate) ?? selectedDate
+        case .month:
+            selectedDate = calendar.date(byAdding: .month, value: -1, to: selectedDate) ?? selectedDate
+        case .year:
+            selectedDate = calendar.date(byAdding: .year, value: -1, to: selectedDate) ?? selectedDate
+        }
+    }
+    
+    func goForward() {
         let calendar = Calendar.current
         let now = Date()
+        switch selectedPeriod {
+        case .week:
+            let next = calendar.date(byAdding: .weekOfYear, value: 1, to: selectedDate) ?? selectedDate
+            if next <= now { selectedDate = next }
+        case .month:
+            let next = calendar.date(byAdding: .month, value: 1, to: selectedDate) ?? selectedDate
+            if next <= now { selectedDate = next }
+        case .year:
+            let next = calendar.date(byAdding: .year, value: 1, to: selectedDate) ?? selectedDate
+            if next <= now { selectedDate = next }
+        }
+    }
+    
+    var isCurrentPeriod: Bool {
+        let calendar = Calendar.current
+        switch selectedPeriod {
+        case .week:
+            return calendar.isDate(selectedDate, equalTo: Date(), toGranularity: .weekOfYear) || selectedDate > Date()
+        case .month:
+            return calendar.isDate(selectedDate, equalTo: Date(), toGranularity: .month) || selectedDate > Date()
+        case .year:
+            return calendar.isDate(selectedDate, equalTo: Date(), toGranularity: .year) || selectedDate > Date()
+        }
+    }
+
+    // MARK: Period Title
+    var periodTitle: String {
+        let formatter = DateFormatter()
+        switch selectedPeriod {
+        case .week:
+            let calendar = Calendar.current
+            let start = calendar.dateInterval(of: .weekOfYear, for: selectedDate)?.start ?? selectedDate
+            let end = calendar.date(byAdding: .day, value: 6, to: start) ?? selectedDate
+            formatter.dateFormat = "MMM d"
+            return "\(formatter.string(from: start)) - \(formatter.string(from: end))"
+        case .month:
+            formatter.dateFormat = "MMMM yyyy"
+            return formatter.string(from: selectedDate)
+        case .year:
+            formatter.dateFormat = "yyyy"
+            return formatter.string(from: selectedDate)
+        }
+    }
+    
+    // MARK: Filtered Logs
+    var filteredLogs: [Log] {
+        let calendar = Calendar.current
         return logs.filter {
             switch selectedPeriod {
             case .week:
-                return calendar.isDate($0.time, equalTo: now, toGranularity: .weekOfYear)
+                return calendar.isDate($0.time, equalTo: selectedDate, toGranularity: .weekOfYear)
             case .month:
-                return calendar.isDate($0.time, equalTo: now, toGranularity: .month)
+                return calendar.isDate($0.time, equalTo: selectedDate, toGranularity: .month)
             case .year:
-                return calendar.isDate($0.time, equalTo: now, toGranularity: .year)
+                return calendar.isDate($0.time, equalTo: selectedDate, toGranularity: .year)
             }
         }
     }
     
+    // MARK: Variables
     var totalCaffeine: Int {filteredLogs.reduce(0) { $0 + $1.caffeine }}
     var totalSugar: Int {filteredLogs.reduce(0) { $0 + $1.sugar }}
     var totalSpend: Double {filteredLogs.compactMap { $0.price }.reduce(0, +) }
@@ -64,6 +126,7 @@ struct ReportView: View {
                         ForEach(Period.allCases, id: \.self) { period in
                             Button {
                                 selectedPeriod = period
+                                selectedDate = Date() // reset to current when switching
                             } label: {
                                 Text(period.rawValue)
                                     .font(.subheadline)
@@ -80,46 +143,94 @@ struct ReportView: View {
                     }
                     .padding(.horizontal)
                     
-                    // MARK: Type Breakdown
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("By Type")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                    // MARK: Period Navigator
+                    HStack {
+                        Button {
+                            goBack()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.brown)
+                                .padding(8)
+                                .background(Color(.systemGray6))
+                                .clipShape(Circle())
+                        }
+                    
+                        Spacer()
                         
-                        let typeCounts = Dictionary(grouping: filteredLogs, by: { $0.type })
-                            .mapValues { $0.count }
-                            .sorted { $0.value > $1.value }
+                        Text(periodTitle)
+                            .font(.headline)
+                            .fontWeight(.semibold)
                         
-                        ForEach(typeCounts, id: \.key) { type, count in
-                            HStack {
-                                Text(type.emoji)
-                                Text(type.rawValue.capitalized)
-                                    .font(.subheadline)
-                                Spacer()
-                                Text("\(count) cups")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                            }
-                            
-                            GeometryReader { geo in
-                                ZStack(alignment: .leading) {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(Color(.systemGray5))
-                                        .frame(height: 6)
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(.brown)
-                                        .frame(width: geo.size.width * (totalCups == 0 ? 0 : CGFloat(count) / CGFloat(totalCups)), height: 6)
-                                }
-                            }
-                            .frame(height: 6)
+                        Spacer()
+                        
+                        Button {
+                            goForward()
+                        } label: {
+                            Image(systemName: "chevron.right")
+                                .fontWeight(.semibold)
+                                .foregroundStyle(isCurrentPeriod ? .secondary : Color(.brown))
+                                .padding(8)
+                                .background(Color(.systemGray6))
+                                .clipShape(Circle())
+                        }
+                        .disabled(isCurrentPeriod)
+                    }
+                    .padding(.horizontal)
+                    
+                    // MARK: Empty State
+                    if filteredLogs.isEmpty {
+                        VStack(spacing: 8) {
+                            Text("☕")
+                                .font(.system(size: 48))
+                            Text("No drinks logged for this \(selectedPeriod.rawValue.lowercased())")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
                         }
                     }
-                    .padding()
-                    .background(Color(.systemBackground))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .shadow(color: .black.opacity(0.04), radius: 4, x: 0, y: 2)
-                    .padding(.horizontal)
-
+                    
+                    // MARK: Type Breakdown
+                    if !filteredLogs.isEmpty {
+                        VStack(alignment: .leading, spacing: 12) {
+                            
+                            Text("By Type")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                            
+                            let typeCounts = Dictionary(grouping: filteredLogs, by: { $0.type })
+                                .mapValues { $0.count }
+                                .sorted { $0.value > $1.value }
+                            
+                            ForEach(typeCounts, id: \.key) { type, count in
+                                HStack {
+                                    Text(type.emoji)
+                                    Text(type.rawValue.capitalized)
+                                        .font(.subheadline)
+                                    Spacer()
+                                    Text("\(count) cups")
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
+                                
+                                GeometryReader { geo in
+                                    ZStack(alignment: .leading) {
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(Color(.systemGray5))
+                                            .frame(height: 6)
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.brown)
+                                            .frame(width: geo.size.width * (totalCups == 0 ? 0 : CGFloat(count) / CGFloat(totalCups)), height: 6)
+                                    }
+                                }
+                                .frame(height: 6)
+                            }
+                        }
+                        .padding()
+                        .background(Color(.systemBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .shadow(color: .black.opacity(0.04), radius: 4, x: 0, y: 2)
+                        .padding(.horizontal)
+                    }
                     
                     // MARK: Cups + Spend
                     HStack(spacing: 16) {
