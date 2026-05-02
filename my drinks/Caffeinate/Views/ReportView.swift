@@ -96,7 +96,10 @@ struct ReportView: View {
     // MARK: Variables
     var totalCaffeine: Int {filteredLogs.reduce(0) { $0 + $1.caffeine }}
     var totalSugar: Int {filteredLogs.reduce(0) { $0 + $1.sugar }}
-    var totalSpend: Double {filteredLogs.compactMap { $0.price }.reduce(0, +) }
+    var totalSpend: Double {
+        let sum = filteredLogs.compactMap { $0.price }.reduce(0, +)
+        return (sum * 100).rounded() / 100
+    }
     var totalCups: Int { filteredLogs.count }
     
     func uniqueDays(from logs: [Log]) -> Int {

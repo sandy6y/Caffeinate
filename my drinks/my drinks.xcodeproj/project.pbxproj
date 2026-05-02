@@ -11,9 +11,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2618AE9A2FA14F3E00AAF1FD /* my drinks */ = {
+		2618AE9A2FA14F3E00AAF1FD /* Caffeinate */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "my drinks";
+			path = Caffeinate;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		2618AE8F2FA14F3E00AAF1FD = {
 			isa = PBXGroup;
 			children = (
-				2618AE9A2FA14F3E00AAF1FD /* my drinks */,
+				2618AE9A2FA14F3E00AAF1FD /* Caffeinate */,
 				2618AE992FA14F3E00AAF1FD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				2618AE9A2FA14F3E00AAF1FD /* my drinks */,
+				2618AE9A2FA14F3E00AAF1FD /* Caffeinate */,
 			);
 			name = "my drinks";
 			packageProductDependencies = (
