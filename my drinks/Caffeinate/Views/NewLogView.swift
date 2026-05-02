@@ -222,6 +222,15 @@ struct NewLogView: View {
             note: note.isEmpty ? nil : note
         )
         logs.append(log)
+        /*
+         Task {
+            if let existing = existingLog {
+                await viewModel.updateLog(log)
+            } else {
+            await viewModel.createLog(log)
+            }
+         }
+         */
         dismiss()
     }
 

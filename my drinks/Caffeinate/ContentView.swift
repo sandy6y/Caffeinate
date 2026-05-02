@@ -10,6 +10,7 @@ import Foundation
 
 struct ContentView: View {
     @State private var logs: [Log] = Log.dummyList
+    // @StateObject private var viewModel = LogViewModel()
     
     var body: some View {        
         TabView {
@@ -27,6 +28,8 @@ struct ContentView: View {
                 }
         }
         .tint(.brown)
+        // .task {
+        //      await viewModel.fetchLogs()
     }
 }
 

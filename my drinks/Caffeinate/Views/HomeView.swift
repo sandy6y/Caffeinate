@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Binding var logs: [Log]
+    // @ObservedObject var viewModel: LogViewModel
     @State private var showingNewLog = false
     @State private var selectedMonth: Date = Date()
     
