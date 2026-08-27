@@ -11,7 +11,7 @@
 
 ## Links
 - **iOS Repo:** *(this repo)*
-- **Backend Repo:** *(add link here if applicable)*
+- **Backend Repo:** *(this repo)*
 
 ---
 
@@ -54,15 +54,13 @@ Profile view showing all-time stats and personal records
 | **Multiple screens / navigation** | Tab-based navigation across Home, Report, and Profile; `NewLogView` presented as a sheet; `NavigationStack` used throughout |
 | **User input** | `NewLogView` collects name, date/time, drink type, size, temperature, caffeine, sugar, price, rating (heart picker), and a freeform note |
 | **Dynamic UI** | Logs grouped by day on Home; Report updates in real time as period and date change; empty states handled gracefully |
-| **Networking** | `NetworkManager` (async/await) wraps GET `/logs`, POST `/logs`, and DELETE `/logs/{id}` with proper error handling via `NetworkError` |
+| **Networking** | `NetworkManager` (async/await) wraps GET `/logs` and POST `/logs` with proper error handling via `NetworkError` |
 | **Date handling** | `Date` extension for creating test dates; month/week/year navigation with boundary guards (can't navigate to future periods) |
 | **Computed statistics** | Caffeine totals, daily averages, sugar, spend, favorite drink type, most caffeinated day, most expensive drink, hot vs. iced preference |
 
 ---
 
-## Notes for Graders
+## Notes
 
-- The backend URL in `NetworkManager` is currently a placeholder (`api.mydrinks.example.com`) — swap in the real base URL to connect to a live server.
-- Dummy data (`Log.dummyList`) is included for previews and testing without a running backend.
 - The caffeine limit reference (400 mg/day) is based on FDA guidelines for healthy adults.
 - The `HeartRatingView` supports tap-to-rate on a 1–5 scale with a heart icon UI.
