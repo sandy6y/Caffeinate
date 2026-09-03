@@ -17,21 +17,31 @@
 
 ## Screenshots
 
-<p align="center">
-  <img width="400" height="825" alt="Screenshot 2026-05-01 at 10 54 07 PM" src="https://github.com/user-attachments/assets/6cd8d16d-8830-4fe4-893b-49b38dc07f00" />
-  <sub>Home screen showing today's caffeine summary + drink log</sub>
-
-
-  <img width="400" height="825" alt="Screenshot 2026-05-01 at 10 54 15 PM" src="https://github.com/user-attachments/assets/03af3dcc-cdec-461d-86ca-08155a6f14f7" />
-  <img width="395" height="825" alt="Screenshot 2026-05-01 at 10 54 26 PM" src="https://github.com/user-attachments/assets/85f1b94b-d46e-45f2-99ce-1c12818b5fac" />
-  <sub>"Add Drink" sheet with type picker, size, and rating</sub>
-
-  <img width="400" height="825" alt="Screenshot 2026-05-01 at 10 54 34 PM" src="https://github.com/user-attachments/assets/530a9074-3dee-4c72-a8f8-860c0f9e4b8e" />
-  <sub>Report view with type breakdown bar chart</sub>
-
-  <img width="400" height="825" alt="Screenshot 2026-05-01 at 10 54 41 PM" src="https://github.com/user-attachments/assets/08b49083-74b6-4ed2-bd11-b06fd9aabda6" />
-  <sub>Profile view showing all-time stats and personal records</sub>
-</p>
+<table>
+  <tr>
+    <td align="center">
+      <img width="400" alt="Home screen" src="https://github.com/user-attachments/assets/6cd8d16d-8830-4fe4-893b-49b38dc07f00" /><br />
+      <sub>Home screen showing today's caffeine summary + drink log</sub>
+    </td>
+    <td align="center">
+      <img width="400" alt="Report view" src="https://github.com/user-attachments/assets/530a9074-3dee-4c72-a8f8-860c0f9e4b8e" /><br />
+      <sub>Report view with type breakdown bar chart</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <img width="380" alt="Add Drink sheet part 1" src="https://github.com/user-attachments/assets/03af3dcc-cdec-461d-86ca-08155a6f14f7" />
+      <img width="380" alt="Add Drink sheet part 2" src="https://github.com/user-attachments/assets/85f1b94b-d46e-45f2-99ce-1c12818b5fac" /><br />
+      <sub>"Add Drink" sheet with type picker, size, and rating (scrolled)</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <img width="400" alt="Profile view" src="https://github.com/user-attachments/assets/08b49083-74b6-4ed2-bd11-b06fd9aabda6" /><br />
+      <sub>Profile view showing all-time stats and personal records</sub>
+    </td>
+  </tr>
+</table>
 
 ---
 
