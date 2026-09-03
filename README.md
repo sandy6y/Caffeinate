@@ -17,18 +17,21 @@
 
 ## Screenshots
 
-Home screen showing today's caffeine summary + drink log
-<img width="397" height="823" alt="Screenshot 2026-05-01 at 10 54 07 PM" src="https://github.com/user-attachments/assets/6cd8d16d-8830-4fe4-893b-49b38dc07f00" />
+<p align="center">
+  <img width="400" height="825" alt="Screenshot 2026-05-01 at 10 54 07 PM" src="https://github.com/user-attachments/assets/6cd8d16d-8830-4fe4-893b-49b38dc07f00" />
+  <sub>Home screen showing today's caffeine summary + drink log</sub>
 
-"Add Drink" sheet with type picker, size, and rating
-<img width="399" height="825" alt="Screenshot 2026-05-01 at 10 54 15 PM" src="https://github.com/user-attachments/assets/03af3dcc-cdec-461d-86ca-08155a6f14f7" />
-<img width="395" height="826" alt="Screenshot 2026-05-01 at 10 54 26 PM" src="https://github.com/user-attachments/assets/85f1b94b-d46e-45f2-99ce-1c12818b5fac" />
 
-Report view with type breakdown bar chart
-<img width="405" height="826" alt="Screenshot 2026-05-01 at 10 54 34 PM" src="https://github.com/user-attachments/assets/530a9074-3dee-4c72-a8f8-860c0f9e4b8e" />
+  <img width="400" height="825" alt="Screenshot 2026-05-01 at 10 54 15 PM" src="https://github.com/user-attachments/assets/03af3dcc-cdec-461d-86ca-08155a6f14f7" />
+  <img width="395" height="825" alt="Screenshot 2026-05-01 at 10 54 26 PM" src="https://github.com/user-attachments/assets/85f1b94b-d46e-45f2-99ce-1c12818b5fac" />
+  <sub>"Add Drink" sheet with type picker, size, and rating</sub>
 
-Profile view showing all-time stats and personal records
-<img width="410" height="825" alt="Screenshot 2026-05-01 at 10 54 41 PM" src="https://github.com/user-attachments/assets/08b49083-74b6-4ed2-bd11-b06fd9aabda6" />
+  <img width="400" height="825" alt="Screenshot 2026-05-01 at 10 54 34 PM" src="https://github.com/user-attachments/assets/530a9074-3dee-4c72-a8f8-860c0f9e4b8e" />
+  <sub>Report view with type breakdown bar chart</sub>
+
+  <img width="400" height="825" alt="Screenshot 2026-05-01 at 10 54 41 PM" src="https://github.com/user-attachments/assets/08b49083-74b6-4ed2-bd11-b06fd9aabda6" />
+  <sub>Profile view showing all-time stats and personal records</sub>
+</p>
 
 ---
 
